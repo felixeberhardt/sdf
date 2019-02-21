@@ -461,12 +461,12 @@ namespace OpenNETCF.IO
       public void StopListen()
       {
         bool createdNew = false;
-        EventWaitHandle ewh = new EventWaitHandle(false, EventResetMode.ManualReset, WaitHandleName, out createdNew);
+        OpenNETCF.Threading.EventWaitHandle ewh = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset, WaitHandleName, out createdNew);
         if (ewh != null)
         {
           m_quit = true;
           ewh.Set();
-          EventWaitHandle quit = new EventWaitHandle(false, EventResetMode.ManualReset, WaitHandleNameQuit, out createdNew);
+          OpenNETCF.Threading.EventWaitHandle quit = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset, WaitHandleNameQuit, out createdNew);
           quit.WaitOne(5000, true);
         }
 
@@ -487,7 +487,7 @@ namespace OpenNETCF.IO
         {
           // kill the worker thread
           m_quit = true;
-          EventWaitHandle ewh = new EventWaitHandle(false, EventResetMode.ManualReset, WaitHandleName);
+          OpenNETCF.Threading.EventWaitHandle ewh = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset, WaitHandleName);
           ewh.Set();
         }
         if (!finalizing)
@@ -509,13 +509,13 @@ namespace OpenNETCF.IO
         uint returned = 0;
         uint available = 0;
 
-        EventWaitHandle ewh = new EventWaitHandle(false, EventResetMode.ManualReset, WaitHandleName);
-        EventWaitHandle quitWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, WaitHandleNameQuit);
+        OpenNETCF.Threading.EventWaitHandle ewh = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset, WaitHandleName);
+        OpenNETCF.Threading.EventWaitHandle quitWaitHandle = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset, WaitHandleNameQuit);
         while (!m_quit)
         {
           ewh.Reset();
 
-          if (EventWaitHandle.WaitAny(new IntPtr[] { notifyHandle, ewh.Handle }, TimeoutInfinite, false) != EventWaitHandle.WaitTimeout)
+          if (OpenNETCF.Threading.EventWaitHandle.WaitAny(new IntPtr[] { notifyHandle, ewh.Handle }, TimeoutInfinite, false) != OpenNETCF.Threading.EventWaitHandle.WaitTimeout)
           {
 
             if (m_quit)

@@ -233,7 +233,7 @@ namespace OpenNETCF.Media
             wfm.TicksPerQuarterNote = 15;
 
             IntPtr hWaveOut;
-            EventWaitHandle hEvent = new EventWaitHandle(false, EventResetMode.ManualReset);
+            OpenNETCF.Threading.EventWaitHandle hEvent = new OpenNETCF.Threading.EventWaitHandle(false, OpenNETCF.Threading.EventResetMode.ManualReset);
 
             byte[] d = wfm.GetBytes();
 
